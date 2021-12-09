@@ -60,7 +60,6 @@ for (var i = 0; i < hours.length; i++) {
   saveTaskIcon.className = 'fas fa-save';
 
   timeHour.textContent = hours[i].hour + hours[i].meridiem;
-  taskList.textContent = 'hello';
 
   scheduleContainer.append(scheduleTime, scheduleTask, saveTask);
   scheduleTime.appendChild(timeHour);
@@ -73,14 +72,13 @@ var saveTasks = function () {
 };
 
 $('.container').on('click', '.saveBtn', function () {
+  saveTasks();
   console.log('I was clicked');
 });
 
 $('.container').on('click', '.text', function () {
   console.log('Text was clicked');
 });
-
-saveTasks();
 
 setTimeout(function () {
   location = '';
