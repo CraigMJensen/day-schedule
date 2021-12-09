@@ -37,34 +37,50 @@ var hours = [
   },
 ];
 
-var newDay = moment().format('MMMM Do YYYY, h:mm a');
+var newDay = moment().format('LLLL');
 
 var currentDay = document.querySelector('#currentDay');
 currentDay.textContent = newDay;
+
+var toDoArr = [];
 
 for (var i = 0; i < hours.length; i++) {
   var scheduleContainer = document.querySelector('.container');
   var scheduleTime = document.createElement('div');
   var timeHour = document.createElement('p');
   var scheduleTask = document.createElement('div');
+  var taskList = document.createElement('p');
   var saveTask = document.createElement('div');
   var saveTaskIcon = document.createElement('i');
 
   scheduleTime.className = 'col-lg-1 hour';
   scheduleTask.className = 'col-lg-10 past row text';
+  taskList.className = 'taskText';
   saveTask.className = 'col-lg-1 saveBtn';
   saveTaskIcon.className = 'fas fa-save';
 
   timeHour.textContent = hours[i].hour + hours[i].meridiem;
+  taskList.textContent = 'hello';
 
   scheduleContainer.append(scheduleTime, scheduleTask, saveTask);
   scheduleTime.appendChild(timeHour);
+  scheduleTask.appendChild(taskList);
   saveTask.appendChild(saveTaskIcon);
 }
 
-$('.container').on('click', '.text', function () {
-  console.log('was clicked');
+var saveTasks = function () {
+  localStorage.setItem('toDoArr', JSON.stringify(toDoArr));
+};
+
+$('.container').on('click', '.saveBtn', function () {
+  console.log('I was clicked');
 });
+
+$('.container').on('click', '.text', function () {
+  console.log('Text was clicked');
+});
+
+saveTasks();
 
 setTimeout(function () {
   location = '';
