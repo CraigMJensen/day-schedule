@@ -37,7 +37,7 @@ var hours = [
   },
 ];
 
-var newDay = moment().format('LLLL');
+var newDay = moment().format('MMMM Do YYYY');
 
 var currentDay = document.querySelector('#currentDay');
 currentDay.textContent = newDay;
@@ -82,4 +82,4 @@ $('.container').on('click', '.text', function () {
 
 setTimeout(function () {
   location = '';
-}, 60000);
+}, 3600000);
