@@ -31,7 +31,7 @@ var hours = [
 var newDay = moment().format('MMM. Do, YYYY');
 var hourlyTaskUpdate = moment().format('HH');
 console.log(hourlyTaskUpdate);
-var scheduleTime = document.querySelector('#hourDiv');
+
 var scheduleTask = document.getElementById('textarea');
 
 var currentDay = document.querySelector('#currentDay');
@@ -70,6 +70,7 @@ for (var i = 0; i < hours.length; i++) {
 }
 
 var saveTasks = function () {
+  // localStorage.setItem('toDoArr');
   console.log('saved');
 };
 
