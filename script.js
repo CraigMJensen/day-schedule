@@ -1,43 +1,38 @@
 var hours = [
   {
     hour: 9,
-    meridiem: 'AM',
   },
   {
     hour: 10,
-    meridiem: 'AM',
   },
   {
     hour: 11,
-    meridiem: 'AM',
   },
   {
     hour: 12,
-    meridiem: 'PM',
   },
   {
-    hour: 1,
-    meridiem: 'PM',
+    hour: 13,
   },
   {
-    hour: 2,
-    meridiem: 'PM',
+    hour: 14,
   },
   {
-    hour: 3,
-    meridiem: 'PM',
+    hour: 15,
   },
   {
-    hour: 4,
-    meridiem: 'PM',
+    hour: 16,
   },
   {
-    hour: 5,
-    meridiem: 'PM',
+    hour: 17,
   },
 ];
 
-var newDay = moment().format('MMMM Do YYYY');
+var newDay = moment().format('MMM. Do, YYYY');
+var hourlyTaskUpdate = moment().format('HH');
+console.log(hourlyTaskUpdate);
+var scheduleTimeEl = document.querySelector('#hourDiv');
+var scheduleTaskEl = document.getElementById('textarea');
 
 var currentDay = document.querySelector('#currentDay');
 currentDay.textContent = newDay;
@@ -47,36 +42,50 @@ var toDoArr = [];
 for (var i = 0; i < hours.length; i++) {
   var scheduleContainer = document.querySelector('.container');
   var scheduleTime = document.createElement('div');
-  var timeHour = document.createElement('p');
   var scheduleTask = document.createElement('div');
-  var taskList = document.createElement('p');
   var saveTask = document.createElement('div');
   var saveTaskIcon = document.createElement('i');
 
   scheduleTime.className = 'col-lg-1 hour';
-  scheduleTask.className = 'col-lg-10 past row text';
-  taskList.className = 'taskText';
+  scheduleTime.id = 'hourDiv';
+  scheduleTask.className = 'col-lg-10 row text';
+  scheduleTask.id = 'textarea';
   saveTask.className = 'col-lg-1 saveBtn';
   saveTaskIcon.className = 'fas fa-save';
 
-  timeHour.textContent = hours[i].hour + hours[i].meridiem;
+  scheduleTime.textContent = hours[i].hour;
 
   scheduleContainer.append(scheduleTime, scheduleTask, saveTask);
-  scheduleTime.appendChild(timeHour);
-  scheduleTask.appendChild(taskList);
+
   saveTask.appendChild(saveTaskIcon);
+
+  if (hourlyTaskUpdate === hours[i].hour) {
+    scheduleTask.style.backgroundColor = '#ff6961';
+    console.log('ok');
+  } else if (hourlyTaskUpdate < hours[i].hour) {
+    scheduleTask.style.backgroundColor = '#77dd77';
+    console.log('okay');
+  } else if (hourlyTaskUpdate > hours[i].hour) {
+    scheduleTask.style.backgroundColor = '#d3d3d3';
+    console.log('okie dokie');
+  }
 }
 
 var saveTasks = function () {
   localStorage.setItem('toDoArr', JSON.stringify(toDoArr));
+
+  console.log('saved');
 };
 
 $('.container').on('click', '.saveBtn', function () {
   saveTasks();
+
   console.log('I was clicked');
 });
 
 $('.container').on('click', '.text', function () {
+  $(this).attr('contentEditable', 'true');
+
   console.log('Text was clicked');
 });
 
