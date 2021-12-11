@@ -31,13 +31,13 @@ var hours = [
 var newDay = moment().format('MMM. Do, YYYY');
 var hourlyTaskUpdate = moment().format('HH');
 console.log(hourlyTaskUpdate);
-var scheduleTimeEl = document.querySelector('#hourDiv');
-var scheduleTaskEl = document.getElementById('textarea');
+var scheduleTime = document.querySelector('#hourDiv');
+var scheduleTask = document.getElementById('textarea');
 
 var currentDay = document.querySelector('#currentDay');
 currentDay.textContent = newDay;
 
-var toDoArr = [];
+var toDoArr = {};
 
 for (var i = 0; i < hours.length; i++) {
   var scheduleContainer = document.querySelector('.container');
@@ -48,32 +48,28 @@ for (var i = 0; i < hours.length; i++) {
 
   scheduleTime.className = 'col-lg-1 hour';
   scheduleTime.id = 'hourDiv';
-  scheduleTask.className = 'col-lg-10 row text';
-  scheduleTask.id = 'textarea';
+  scheduleTask.className = 'col-lg-10 row text form-control';
+  scheduleTask.setAttribute('contenteditable', 'true');
+  scheduleTask.id = 'textarea' + [i];
   saveTask.className = 'col-lg-1 saveBtn';
+  saveTask.id = 'save' + [i];
   saveTaskIcon.className = 'fas fa-save';
 
   scheduleTime.textContent = hours[i].hour;
 
   scheduleContainer.append(scheduleTime, scheduleTask, saveTask);
-
   saveTask.appendChild(saveTaskIcon);
 
-  if (hourlyTaskUpdate === hours[i].hour) {
+  if (hourlyTaskUpdate == hours[i].hour) {
     scheduleTask.style.backgroundColor = '#ff6961';
-    console.log('ok');
   } else if (hourlyTaskUpdate < hours[i].hour) {
     scheduleTask.style.backgroundColor = '#77dd77';
-    console.log('okay');
   } else if (hourlyTaskUpdate > hours[i].hour) {
     scheduleTask.style.backgroundColor = '#d3d3d3';
-    console.log('okie dokie');
   }
 }
 
 var saveTasks = function () {
-  localStorage.setItem('toDoArr', JSON.stringify(toDoArr));
-
   console.log('saved');
 };
 
@@ -84,8 +80,6 @@ $('.container').on('click', '.saveBtn', function () {
 });
 
 $('.container').on('click', '.text', function () {
-  $(this).attr('contentEditable', 'true');
-
   console.log('Text was clicked');
 });
 
