@@ -37,7 +37,9 @@ var hours = [
   },
 ];
 
-var newDay = moment().format('LLLL');
+var newDay = moment().format('MMMM Do YYYY');
+var currentTime = moment().format('h');
+console.log(currentTime);
 
 var currentDay = document.querySelector('#currentDay');
 currentDay.textContent = newDay;
@@ -49,13 +51,13 @@ for (var i = 0; i < hours.length; i++) {
   var scheduleTime = document.createElement('div');
   var timeHour = document.createElement('p');
   var scheduleTask = document.createElement('div');
-  var taskList = document.createElement('p');
   var saveTask = document.createElement('div');
   var saveTaskIcon = document.createElement('i');
 
   scheduleTime.className = 'col-lg-1 hour';
+  timeHour.id = hours[i].hour;
   scheduleTask.className = 'col-lg-10 past row text';
-  taskList.className = 'taskText';
+  scheduleTask.id = 'textBox';
   saveTask.className = 'col-lg-1 saveBtn';
   saveTaskIcon.className = 'fas fa-save';
 
@@ -63,13 +65,18 @@ for (var i = 0; i < hours.length; i++) {
 
   scheduleContainer.append(scheduleTime, scheduleTask, saveTask);
   scheduleTime.appendChild(timeHour);
-  scheduleTask.appendChild(taskList);
   saveTask.appendChild(saveTaskIcon);
-}
+  if (currentTime < hours.length) {
+    document.getElementById('textBox').style.backgroundColor = 'red';
+  } else {
+    document.getElementById('textBox').style.backgroundColor = 'blue';
+  }
 
-var saveTasks = function () {
-  localStorage.setItem('toDoArr', JSON.stringify(toDoArr));
-};
+  var saveTasks = function (text) {
+    localStorage.setItem('toDoArr', JSON.stringify(text));
+    console.log(toDoArr);
+  };
+}
 
 $('.container').on('click', '.saveBtn', function () {
   saveTasks();
@@ -77,9 +84,10 @@ $('.container').on('click', '.saveBtn', function () {
 });
 
 $('.container').on('click', '.text', function () {
+  $(this).attr('contenteditable', 'true');
   console.log('Text was clicked');
 });
 
 setTimeout(function () {
   location = '';
-}, 60000);
+}, 3600000);
