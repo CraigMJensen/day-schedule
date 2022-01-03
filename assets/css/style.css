@@ -4,6 +4,15 @@ body {
   line-height: 1;
 }
 
+textarea {
+  background: transparent;
+  border: none;
+  resize: none;
+  color: #000000;
+  border-left: 1px solid black;
+  padding: 10px;
+}
+
 .jumbotron {
   text-align: center;
   background-color: transparent;
@@ -16,19 +25,9 @@ body {
   margin: 0 auto;
 }
 
-.description {
-  white-space: pre-wrap;
-}
-
 .time-block {
   text-align: center;
   border-radius: 15px;
-}
-
-.row {
-  white-space: pre-wrap;
-  height: 80px;
-  border-top: 1px solid white;
 }
 
 .hour {
@@ -40,24 +39,29 @@ body {
   border-top: 1px dashed #000000;
 }
 
+.row {
+  white-space: pre-wrap;
+  height: 80px;
+  border-top: 1px solid white;
+}
+
+/* Textarea color handlers */
 .past {
   background-color: #d3d3d3;
   overflow-y: auto;
-  color: white;
 }
 
 .present {
   background-color: #ff6961;
   overflow-y: auto;
-  color: white;
 }
 
 .future {
   background-color: #77dd77;
   overflow-y: auto;
-  color: white;
 }
 
+/* Save button style */
 .saveBtn {
   display: flex;
   align-items: center;

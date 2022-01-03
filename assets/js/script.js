@@ -1,46 +1,48 @@
+// Variables
 var newDay = moment().format('MMM. Do, YYYY');
+var hourlyTaskUpdate = moment().format('HH');
 
+var infoDiv = document.querySelectorAll('.time-block');
+var scheduleTask = document.querySelectorAll('.text');
+
+// Displays current day
 var currentDay = document.querySelector('#currentDay');
 currentDay.textContent = newDay;
 
-var hourDiv = document.querySelectorAll('.hour');
-var scheduleTask = document.querySelectorAll('.text');
-let saveBtn = document.querySelectorAll('.saveBtn');
-
-let taskText = [];
-
-var hourlyTaskUpdate = moment().format('HHA');
-
-// Controls background color and text editability according to hour of the day
-for (var i = 0; i < hourDiv.length; i++) {
-  if (hourDiv[i].id === hourlyTaskUpdate) {
-    scheduleTask[i].classList.add('present');
-    scheduleTask[i].contentEditable = 'true';
-  } else if (hourDiv[i].id > hourlyTaskUpdate) {
-    scheduleTask[i].classList.add('future');
-    scheduleTask[i].contentEditable = 'true';
-  } else if (hourDiv[i].id < hourlyTaskUpdate) {
-    saveBtn[i].disabled = true;
-    scheduleTask[i].classList.add('past');
-    scheduleTask[i].contentEditable = 'false';
-  }
-  scheduleTask[i].setAttribute('id', 'task' + [i]);
-  saveBtn[i].setAttribute('id', 'save' + [i]);
-}
-
-for (var i = 0; i < saveBtn.length; i++) {
-  // if (!saveBtn[i].disabled) {
-  saveBtn[i].addEventListener('click', function (e) {
-    e.preventDefault();
-    console.log(saveBtn);
+// Document ready function sets local storage on save button click
+$(document).ready(function () {
+  $('.saveBtn').on('click', function () {
+    var time = $(this).parent().attr('id');
+    var text = $(this).siblings('.text').val();
+    localStorage.setItem(time, text);
+    console.log(time, text);
   });
-  console.log('ok');
-  // } else {
-  //   console.log('oh no');
-  // }
+});
+
+// Controls background color according to hour of the day and sets readonly for schedule that has past
+for (var i = 0; i < infoDiv.length; i++) {
+  if (infoDiv[i].id === hourlyTaskUpdate) {
+    scheduleTask[i].classList.add('present');
+  } else if (infoDiv[i].id > hourlyTaskUpdate) {
+    scheduleTask[i].classList.add('future');
+  } else if (infoDiv[i].id < hourlyTaskUpdate) {
+    scheduleTask[i].setAttribute('readonly', true);
+    scheduleTask[i].classList.add('past');
+  }
 }
 
-// Time out function for the date
-setTimeout(function () {
-  location = '';
-}, 3600000);
+// Function to get local storage text to display
+var loadMemory = () => {
+  $('#09 .text').val(localStorage.getItem('09'));
+  $('#10 .text').val(localStorage.getItem('10'));
+  $('#11 .text').val(localStorage.getItem('11'));
+  $('#12 .text').val(localStorage.getItem('12'));
+  $('#13 .text').val(localStorage.getItem('13'));
+  $('#14 .text').val(localStorage.getItem('14'));
+  $('#15 .text').val(localStorage.getItem('15'));
+  $('#16 .text').val(localStorage.getItem('16'));
+  $('#17 .text').val(localStorage.getItem('17'));
+};
+
+// Function call to load local storage
+loadMemory();
